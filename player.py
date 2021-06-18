@@ -31,25 +31,34 @@ def print_map(area):
         print(*area[i], sep=' ')
     print('==========')
 
-
+def helpq():
+    print('+=+=+=+=+=+=+=+=+=+=+=')
+    print('''Назначение клавиш:
+    w - Вверх
+    a - Влево
+    s - Вниз
+    d - Вправо
+    r - Перезагрузить карту, например если некуда ходить
+    reset - Полная перезагрузка движка
+    
+    Также можно использовать 
+    русские слова для перемещения.''')
+    input('Нажмите Enter для продолжения ')
+    print('''Обьекты:
+    X - Персонаж
+    _ - Пустая клетка
+    o - Стена
+    ''')
 def game(areaq):
+    print('=+=+=+=+=\nВведите help для обучения\n=+=+=+=+=')
+    process = True
     area = areaq[0]
     area_len = areaq[1]
     print_map(area)
     nowx = 0
     nowy = 0
-    while True:
-        where = input('wasd: ')
-        # def check_zero():
-        #     global nowx, nowy
-        #     if nowx < 0:
-        #         nowx = area_len
-        #     elif nowx > area_len:
-        #         nowx = 0
-        #     elif nowy < 0:
-        #         nowy = area_len
-        #     elif nowy > area_len:
-        #         nowy = 0
+    while process:
+        where = input('Куда: ')
 
         if where == "вниз" or where == 's':
             if nowy <= area_len - 2:
@@ -112,8 +121,23 @@ def game(areaq):
             except:
                 print('Вы дошли до края платформы!')
 
+        elif where == 'help':
+            helpq()
+
+        elif where == 'r':
+            if input('Введите r ещё раз для подтверждения') == 'r':
+                area = get_area(area_len)[0]
+                nowx = 0
+                nowy = 0
+            else:
+                print('+=+ОТМЕНЕНО+=+')
+
+        elif where == 'reset':
+            process = False
+            game(get_area(area_len))
+
         print(f'X={nowx}, Y={nowy}')
         print_map(area)
 
 
-game(get_area(int(input())))
+game(get_area(int(input('Размер поля: '))))
