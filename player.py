@@ -30,6 +30,7 @@ def print_map(area):
         print(*area[i], sep=' ')
     print('==========')
 
+
 def helpq():
     print('+=+=+=+=+=+=+=+=+=+=+=')
     print('''Назначение клавиш:
@@ -48,6 +49,8 @@ def helpq():
     _ - Пустая клетка
     o - Стена
     ''')
+
+
 def game(areaq):
     print('=+=+=+=+=\nВведите help для обучения\n=+=+=+=+=')
     process = True
@@ -73,49 +76,38 @@ def game(areaq):
             except:
                 print('Вы дошли до края платформы!')
 
-
         elif where == "вверх" or where == 'w':
             if nowy != 0:
-                try:
-
-                    if not area[nowy - 1][nowx] == 'o':
-                        nowy -= 1
-                        area[nowy][nowx] = 'X'
-                        area[nowy + 1][nowx] = '_'
-                    else:
-                        print('Тут стена :|')
-
-                except:
-                    print('Вы дошли до края платформы!')
-
+                if not area[nowy - 1][nowx] == 'o':
+                    nowy -= 1
+                    area[nowy][nowx] = 'X'
+                    area[nowy + 1][nowx] = '_'
+                else:
+                    print('Тут стена :|')
+            else:
+                print('Вы дошли до края платформы!')
 
         elif where == "право" or where == 'd':
-            try:
-
+            if nowx != area_len - 1:
                 if not area[nowy][nowx + 1] == 'o':
                     nowx += 1
                     area[nowy][nowx] = 'X'
                     area[nowy][nowx - 1] = '_'
                 else:
                     print('Тут стена :|')
-
-            except:
+            else:
                 print('Вы дошли до края платформы!')
-
 
         elif where == "лево" or where == "a":
             if nowx != 0:
-                pass
-                try:
-                    if not area[nowy][nowx - 1] == 'o':
-                        nowx -= 1
-                        area[nowy][nowx] = 'X'
-                        area[nowy][nowx + 1] = '_'
-                    else:
-                        print('Тут стена :|')
-
-                except:
-                    print('Вы дошли до края платформы!')
+                if not area[nowy][nowx - 1] == 'o':
+                    nowx -= 1
+                    area[nowy][nowx] = 'X'
+                    area[nowy][nowx + 1] = '_'
+                else:
+                    print('Тут стена :|')
+            else:
+                print('Вы дошли до края платформы!')
 
         elif where == 'help':
             helpq()
