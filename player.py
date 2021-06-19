@@ -7,19 +7,14 @@ def get_area(s):
     f = True
     tmp = ['X']
     allq = ['_', '_', '_', 'o']
-    for i in range(s):
-        for j in range(s):
+    for i in range(s):  # По вертикале поле генерируется на 1 меньше, но мне кажется так выглядит лучше,
+        for j in range(s):  # Это можно исправить, добавив +1 в for i in range(s + 1)
             tmp.append(choice(allq))
         area.append(tmp)
         tmp = []
         if f:
             s += 1
         f = False
-
-    # area = [['X', '.', '.', '.'],
-    #         ['.', 'o', '.', '.'],
-    #         ['.', '.', '.', 'o'],
-    #         ['.', '.', '.', '.']]
     return [area, s]
 
 
@@ -40,8 +35,8 @@ def helpq():
     d - Вправо
     r - Перезагрузить карту, например если некуда ходить
     reset - Почти полная перезагрузка движка
-    f3 - Вкл / Откл показ координат !(Временно нет)!
-    
+    f3 - Вкл / Откл показ координат
+    mf3 - Режим полной откладки      BETA
     Дополнительно при моделе keyboard (Сочетание клавиш):
     Ctrl + 1 - Вкл / Откл показ координат
     
@@ -63,15 +58,23 @@ def f3on_off():
         isf3 = False
 
 
+def mf3on_off():
+    global ismf3
+    if not ismf3:
+        ismf3 = True
+    else:
+        ismf3 = False
+
 try:
     import keyboard
+
     keyboard.add_hotkey('ctrl+1', f3on_off)
 except:
     print('У вас не установлен модуль keyboard. Для использования дополнительных функций, можно его установить:\n'
           'pip install keyboard')
 
 isf3 = False
-
+ismf3 = False
 
 def game(areaq):
     print('=+=+=+=+=\nВведите help для обучения\n=+=+=+=+=')
@@ -85,17 +88,14 @@ def game(areaq):
         where = input('Куда: ')
 
         if where == "вниз" or where == 's':
-            if nowy <= area_len - 2:
-                pass
-            try:
+            if nowy != area_len - 2:
                 if not area[nowy + 1][nowx] == 'o':
                     nowy += 1
                     area[nowy][nowx] = 'X'
                     area[nowy - 1][nowx] = '_'
                 else:
                     print('Тут стена :|')
-
-            except:
+            else:
                 print('Вы дошли до края платформы!')
 
         elif where == "вверх" or where == 'w':
@@ -145,6 +145,21 @@ def game(areaq):
         elif where == 'reset':
             process = False
             game(get_area(int(input('Размер поля: '))))
+
+        elif where == 'f3':
+            f3on_off()
+
+        elif where == 'mf3':
+            mf3on_off()
+
+        if ismf3:
+            print(f'''X={nowx}
+Y={nowy}
+Area_len={area_len}
+Where={where}
+process={process}
+isf3={isf3}''')
+
         if isf3:
             print(f'X={nowx}, Y={nowy}')
         print_map(area)
