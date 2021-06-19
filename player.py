@@ -20,7 +20,6 @@ def get_area(s):
     #         ['.', 'o', '.', '.'],
     #         ['.', '.', '.', 'o'],
     #         ['.', '.', '.', '.']]
-    print(area)
     return [area, s]
 
 
@@ -76,24 +75,21 @@ def game(areaq):
 
 
         elif where == "вверх" or where == 'w':
-            if nowy >= area_len - 3:
-                pass
-            try:
+            if nowy != 0:
+                try:
 
-                if not area[nowy - 1][nowx] == 'o':
-                    nowy -= 1
-                    area[nowy][nowx] = 'X'
-                    area[nowy + 1][nowx] = '_'
-                else:
-                    print('Тут стена :|')
+                    if not area[nowy - 1][nowx] == 'o':
+                        nowy -= 1
+                        area[nowy][nowx] = 'X'
+                        area[nowy + 1][nowx] = '_'
+                    else:
+                        print('Тут стена :|')
 
-            except:
-                print('Вы дошли до края платформы!')
+                except:
+                    print('Вы дошли до края платформы!')
 
 
         elif where == "право" or where == 'd':
-            if nowx <= area_len - 2:
-                pass
             try:
 
                 if not area[nowy][nowx + 1] == 'o':
@@ -108,18 +104,18 @@ def game(areaq):
 
 
         elif where == "лево" or where == "a":
-            if nowx >= area_len - 3:
+            if nowx != 0:
                 pass
-            try:
-                if not area[nowy][nowx - 1] == 'o':
-                    nowx -= 1
-                    area[nowy][nowx] = 'X'
-                    area[nowy][nowx + 1] = '_'
-                else:
-                    print('Тут стена :|')
+                try:
+                    if not area[nowy][nowx - 1] == 'o':
+                        nowx -= 1
+                        area[nowy][nowx] = 'X'
+                        area[nowy][nowx + 1] = '_'
+                    else:
+                        print('Тут стена :|')
 
-            except:
-                print('Вы дошли до края платформы!')
+                except:
+                    print('Вы дошли до края платформы!')
 
         elif where == 'help':
             helpq()
@@ -134,7 +130,7 @@ def game(areaq):
 
         elif where == 'reset':
             process = False
-            game(get_area(area_len))
+            game(get_area(int(input('Размер поля: '))))
 
         print(f'X={nowx}, Y={nowy}')
         print_map(area)
