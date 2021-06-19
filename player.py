@@ -39,7 +39,11 @@ def helpq():
     s - Вниз
     d - Вправо
     r - Перезагрузить карту, например если некуда ходить
-    reset - Полная перезагрузка движка
+    reset - Почти полная перезагрузка движка
+    f3 - Вкл / Откл показ координат !(Временно нет)!
+    
+    Дополнительно при моделе keyboard (Сочетание клавиш):
+    Ctrl + 1 - Вкл / Откл показ координат
     
     Также можно использовать 
     русские слова для перемещения.''')
@@ -49,6 +53,24 @@ def helpq():
     _ - Пустая клетка
     o - Стена
     ''')
+
+
+def f3on_off():
+    global isf3
+    if not isf3:
+        isf3 = True
+    else:
+        isf3 = False
+
+
+try:
+    import keyboard
+    keyboard.add_hotkey('ctrl+1', f3on_off)
+except:
+    print('У вас не установлен модуль keyboard. Для использования дополнительных функций, можно его установить:\n'
+          'pip install keyboard')
+
+isf3 = False
 
 
 def game(areaq):
@@ -123,8 +145,8 @@ def game(areaq):
         elif where == 'reset':
             process = False
             game(get_area(int(input('Размер поля: '))))
-
-        print(f'X={nowx}, Y={nowy}')
+        if isf3:
+            print(f'X={nowx}, Y={nowy}')
         print_map(area)
 
 
