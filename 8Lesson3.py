@@ -1,1 +1,26 @@
-for i in range(int(input())+1): print(str(i) * i)
+from time import sleep as t
+import random
+ip = input('ip: ')
+print('Инициализиция...')
+t(1)
+print(f'Detected user by IPv4 {ip}:25565')
+t(0.5)
+for i in range(101):
+    print(f'{i}%')
+    t(random.uniform(0.01, 0.3))
+print('Start hack..')
+t(0.5)
+print(f'{ip}:79265 by x/y(&*##)z@663')
+for i in range(68):
+    print(f'{i}%')
+    t(random.uniform(0.01, 0.03))
+print('%HACK DETECTED%')
+print(ip)
+print('Rebase by <186.32.44.180>')
+t(2)
+print('canceled')
+print('Try return statement...')
+t(0.5)
+print('connecting...')
+t(0.3)
+print('Run!')

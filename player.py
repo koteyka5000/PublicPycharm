@@ -79,14 +79,19 @@ ismf3 = False
 def game(areaq):
     print('=+=+=+=+=\nВведите help для обучения\n=+=+=+=+=')
     process = True
+    last = ''
+    where = ''
     area = areaq[0]
     area_len = areaq[1]
     print_map(area)
     nowx = 0
     nowy = 0
     while process:
+        last = where
         where = input('Куда: ')
-
+        if where == '':
+            where = last
+            print(where)
         if where == "вниз" or where == 's':
             if nowy != area_len - 2:
                 if not area[nowy + 1][nowx] == 'o':
