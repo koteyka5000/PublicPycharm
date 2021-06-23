@@ -78,7 +78,8 @@ def move(area, nowx, nowy, xnowx, xnowy):
     if check_wall(area, xnowx, xnowy):
         area[xnowy][xnowx] = 'X'
         area[nowy][nowx] = '_'
-    return xnowx, xnowy
+        return xnowx, xnowy
+    return nowx, nowy
 
 
 def move_up(area, nowx, nowy):
@@ -124,6 +125,8 @@ def check_where(where, area, nowx, nowy, area_len):
         nowx, nowy = move_left(area, nowx, nowy)
     elif where == 'd':
         nowx, nowy = move_right(area, nowx, nowy, area_len)
+    elif where == 'help':
+        helpq()
     return nowx, nowy
 
 
@@ -150,14 +153,14 @@ def game(areaq):
     while process:
         last = where
         where = input('Куда: ')
-        nowx, nowy = check_where(where, area, nowx, nowy, area_len)
         if where == '':
             where = last
             print(where)
+        nowx, nowy = check_where(where, area, nowx, nowy, area_len)
 
-        elif where == 'help':
-            helpq()
 
+        if 0:
+            pass
         elif where == 'r':
             if input('Введите r ещё раз для подтверждения') == 'r':
                 area = get_area(area_len)[0]
