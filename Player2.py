@@ -1,4 +1,5 @@
 from random import choice
+import pickle
 
 
 def get_area(s):
@@ -116,6 +117,23 @@ def move_right(area, nowx, nowy, area_len):
     return nowx, nowy
 
 
+def load():
+    try:
+        with open('playerData.data', 'rb') as f:
+            data = pickle.load(f)
+        return data['nowx'], data['nowy'], data['area'], data['area_len']
+    except FileNotFoundError:
+        print('Не найден файл сохранения')
+
+
+
+def save(area, nowx, nowy, area_len):
+    data = {'area': area, 'nowx': nowx, 'nowy': nowy, 'area_len': area_len}
+    with open('playerData.data', 'wb') as f:
+        pickle.dump(data, f)
+    print('Сохранение прошло успешно!')
+
+
 def check_where(where, area, nowx, nowy, area_len):
     if where == 'w':
         nowx, nowy = move_up(area, nowx, nowy)
@@ -125,9 +143,18 @@ def check_where(where, area, nowx, nowy, area_len):
         nowx, nowy = move_left(area, nowx, nowy)
     elif where == 'd':
         nowx, nowy = move_right(area, nowx, nowy, area_len)
+    elif where == 'save':
+        save(area, nowx, nowy, area_len)
+    elif where == 'load':
+        try:
+            nowx, nowy, area, area_len = load()
+        except TypeError:
+            pass
+        else:
+            print('Загрузка прошла успешно')
     elif where == 'help':
         helpq()
-    return nowx, nowy
+    return nowx, nowy, area, area_len
 
 
 try:
@@ -156,39 +183,39 @@ def game(areaq):
         if where == '':
             where = last
             print(where)
-        nowx, nowy = check_where(where, area, nowx, nowy, area_len)
+        nowx, nowy, area, area_len = check_where(where, area, nowx, nowy, area_len)
 
-
-        if 0:
-            pass
-        elif where == 'r':
-            if input('Введите r ещё раз для подтверждения') == 'r':
-                area = get_area(area_len)[0]
-                nowx = 0
-                nowy = 0
-            else:
-                print('+=+ОТМЕНЕНО+=+')
-
-        elif where == 'reset':
-            process = False
-            game(get_area(int(input('Размер поля: '))))
-
-        elif where == 'f3':
-            f3on_off(isf3)
-
-        elif where == 'mf3':
-            mf3on_off(ismf3)
-
-        if ismf3:
-            print(f'''X={nowx}
-                Y={nowy}
-                Area_len={area_len}
-                Where={where}
-                process={process}
-                isf3={isf3}''')
-
-        if isf3:
-            print(f'X={nowx}, Y={nowy}')
+        #
+        # if 0:
+        #     pass
+        # elif where == 'r':
+        #     if input('Введите r ещё раз для подтверждения') == 'r':
+        #         area = get_area(area_len)[0]
+        #         nowx = 0
+        #         nowy = 0
+        #     else:                                                 !!ВСЁ ЭТО СКОРО БУДЕТ!!
+        #         print('+=+ОТМЕНЕНО+=+')
+        #
+        # elif where == 'reset':
+        #     process = False
+        #     game(get_area(int(input('Размер поля: '))))
+        #
+        # elif where == 'f3':
+        #     f3on_off(isf3)
+        #
+        # elif where == 'mf3':
+        #     mf3on_off(ismf3)
+        #
+        # if ismf3:
+        #     print(f'''X={nowx}
+        #         Y={nowy}
+        #         Area_len={area_len}
+        #         Where={where}
+        #         process={process}
+        #         isf3={isf3}''')
+        #
+        # if isf3:
+        #     print(f'X={nowx}, Y={nowy}')
         print_map(area)
 
 
