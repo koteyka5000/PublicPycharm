@@ -34,13 +34,16 @@ def helpq():
     a - Влево
     s - Вниз
     d - Вправо
-    r - Перезагрузить карту, например если некуда ходить
-    reset - Почти полная перезагрузка движка
-    f3 - Вкл / Откл показ координат
-    mf3 - Режим полной откладки      BETA
-    Дополнительно при моделе keyboard (Сочетание клавиш):
-    Ctrl + 1 - Вкл / Откл показ координат
-
+    ! r - Перезагрузить карту, например если некуда ходить
+    save - Сохранить игру в файл
+    load - Загрузить игру из файла
+    ! reset - Почти полная перезагрузка движка
+    ! f3 - Вкл / Откл показ координат
+    ! mf3 - Режим полной откладки      BETA
+    ! Дополнительно при моделе keyboard (Сочетание клавиш):
+    ! Ctrl + 1 - Вкл / Откл показ координат
+    КЛАВИШИ У КОТОРЫХ В НАЧАЛЕ ЕСТЬ ! ВРЕМЕННО НЕ РАБОТАЮТ
+    
     Также можно использовать 
     русские слова для перемещения.''')
     input('Нажмите Enter для продолжения ')
@@ -157,13 +160,13 @@ def check_where(where, area, nowx, nowy, area_len):
     return nowx, nowy, area, area_len
 
 
-try:
-    import keyboard
-
-    keyboard.add_hotkey('ctrl+1', f3on_off)
-except:
-    print('У вас не установлен модуль keyboard. Для использования дополнительных функций, можно его установить:\n'
-          'pip install keyboard')
+# try:
+#     import keyboard
+#     isf3 = True
+#     keyboard.add_hotkey('ctrl+1', lambda: f3on_off(isf3))
+# except:
+#     print('У вас не установлен модуль keyboard. Для использования дополнительных функций, можно его установить:\n'
+#           'pip install keyboard')
 
 
 def game(areaq):
@@ -205,17 +208,16 @@ def game(areaq):
         #
         # elif where == 'mf3':
         #     mf3on_off(ismf3)
-        #
-        # if ismf3:
-        #     print(f'''X={nowx}
-        #         Y={nowy}
-        #         Area_len={area_len}
-        #         Where={where}
-        #         process={process}
-        #         isf3={isf3}''')
-        #
-        # if isf3:
-        #     print(f'X={nowx}, Y={nowy}')
+        if ismf3:
+            print(f'''X={nowx}
+                Y={nowy}
+                Area_len={area_len}
+                Where={where}
+                process={process}
+                isf3={isf3}''')
+
+        if isf3:
+            print(f'X={nowx}, Y={nowy}')
         print_map(area)
 
 
