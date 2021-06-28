@@ -34,12 +34,12 @@ def helpq():
     a - Влево
     s - Вниз
     d - Вправо
-    ! r - Перезагрузить карту, например если некуда ходить
+    r - Перезагрузить карту, например если некуда ходить
     save - Сохранить игру в файл
     load - Загрузить игру из файла
     ! reset - Почти полная перезагрузка движка
-    ! f3 - Вкл / Откл показ координат
-    ! mf3 - Режим полной откладки      BETA
+    f3 - Вкл / Откл показ координат
+    mf3 - Режим полной откладки             DELETED
     ! Дополнительно при моделе keyboard (Сочетание клавиш):
     ! Ctrl + 1 - Вкл / Откл показ координат
     КЛАВИШИ У КОТОРЫХ В НАЧАЛЕ ЕСТЬ ! ВРЕМЕННО НЕ РАБОТАЮТ
@@ -129,7 +129,6 @@ def load():
         print('Не найден файл сохранения')
 
 
-
 def save(area, nowx, nowy, area_len):
     data = {'area': area, 'nowx': nowx, 'nowy': nowy, 'area_len': area_len}
     with open('playerData.data', 'wb') as f:
@@ -137,7 +136,16 @@ def save(area, nowx, nowy, area_len):
     print('Сохранение прошло успешно!')
 
 
-def check_where(where, area, nowx, nowy, area_len):
+def reset_map(area_len, area, nowx, nowy):
+    if input('Введите r ещё раз для подтверждения') == 'r':
+        area = get_area(area_len)[0]
+        return area, 0, 0
+    else:
+        print('+=+ОТМЕНЕНО+=+')
+        return area, nowx, nowy
+
+
+def check_where(where, area, nowx, nowy, area_len, isf3):
     if where == 'w':
         nowx, nowy = move_up(area, nowx, nowy)
     elif where == 's':
@@ -157,7 +165,11 @@ def check_where(where, area, nowx, nowy, area_len):
             print('Загрузка прошла успешно')
     elif where == 'help':
         helpq()
-    return nowx, nowy, area, area_len
+    elif where == 'r':
+        area, nowx, nowy = reset_map(area_len, area, nowx, nowy)
+    elif where == 'f3':
+        isf3 = f3on_off(isf3)
+    return nowx, nowy, area, area_len, isf3
 
 
 # try:
@@ -174,7 +186,6 @@ def game(areaq):
     process = True
     where = ''
     isf3 = True
-    ismf3 = False
     area = areaq[0]
     area_len = areaq[1]
     print_map(area)
@@ -186,36 +197,7 @@ def game(areaq):
         if where == '':
             where = last
             print(where)
-        nowx, nowy, area, area_len = check_where(where, area, nowx, nowy, area_len)
-
-        #
-        # if 0:
-        #     pass
-        # elif where == 'r':
-        #     if input('Введите r ещё раз для подтверждения') == 'r':
-        #         area = get_area(area_len)[0]
-        #         nowx = 0
-        #         nowy = 0
-        #     else:                                                 !!ВСЁ ЭТО СКОРО БУДЕТ!!
-        #         print('+=+ОТМЕНЕНО+=+')
-        #
-        # elif where == 'reset':
-        #     process = False
-        #     game(get_area(int(input('Размер поля: '))))
-        #
-        # elif where == 'f3':
-        #     f3on_off(isf3)
-        #
-        # elif where == 'mf3':
-        #     mf3on_off(ismf3)
-        if ismf3:
-            print(f'''X={nowx}
-                Y={nowy}
-                Area_len={area_len}
-                Where={where}
-                process={process}
-                isf3={isf3}''')
-
+        nowx, nowy, area, area_len, isf3 = check_where(where, area, nowx, nowy, area_len, isf3)
         if isf3:
             print(f'X={nowx}, Y={nowy}')
         print_map(area)
