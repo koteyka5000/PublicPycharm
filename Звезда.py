@@ -34,23 +34,28 @@ class Triangle(DrawShape):
 
 
 class Cube(DrawShape):
-    def __init__(self):
-        self.sides = [100] * 4
-        self.angle = 90
+    def drawCube(self):
+        sides = [100] * 4
+        angle = 90
+        for distance in sides:
+            t.forward(distance)
+            t.left(angle)
+        t.forward(100)
+        t.left(45)
+        t.forward(40)
+        t.left(45)
+        t.forward(100)
+        t.left(135)
+        t.forward(40)
+        t.left(180)
+        t.forward(40)
+        t.left(135)
+        t.forward(100)
+        t.left(45)
+        t.forward(40)
+
 
 cube = Cube()
-cube.draw(cube.sides, cube.angle)
-t.forward(100)
-t.left(45)
-t.forward(40)
-t.left(45)
-t.forward(100)
-t.left(135)
-t.forward(40)
-t.left(180)
-t.forward(40)
-t.left(135)
-t.forward(100)
-t.left(45)
-t.forward(40)
+cube.drawCube()
+
 screen.mainloop()
