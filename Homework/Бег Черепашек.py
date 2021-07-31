@@ -1,10 +1,11 @@
 import turtle
 import random
 
+size = int(input('Размер поля: '))
 
-def get_input(): return int(input('Размер поля: '))
 
-
+linecolour1 = 'black'
+linecolour2 = 'white'
 bgcolor = 'green'
 
 sc = turtle.getscreen()
@@ -36,10 +37,10 @@ def draw_line(size):  # Чертим разметку
     linet.goto(size, 0)
     linet.down()
     linet.left(90)
-    while linet.ycor() != 120:
-        linet.color('black')
+    for i in range(12):
+        linet.color(linecolour1)
         linet.forward(5)
-        linet.color('white')
+        linet.color(linecolour2)
         linet.forward(5)
     linet.hideturtle()
 
@@ -48,7 +49,7 @@ def main(size):  # Главный процесс
     set_turtles()
     draw_line(size)
     t1x, t2x, t3x, t4x = 0, 0, 0, 0
-    while t1x < size or t2x < size or t3x < size or t4x < size:
+    while t1x < size and t2x < size and t3x < size and t4x < size:
         for q in turtles:
             q.forward(random.uniform(0, 5))
             t1x = t1.xcor()
@@ -70,5 +71,5 @@ def get_winner(t1x, t2x, t3x, t4x):  # Отображаем победителя
         print('BLACK IS WINNER')
 
 
-main(get_input())
+main(size)
 sc.mainloop()
