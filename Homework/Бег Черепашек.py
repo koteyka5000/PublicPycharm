@@ -1,8 +1,7 @@
 import turtle
 import random
-
-sc = turtle.getscreen()
 size = int(input('Размер поля: '))
+sc = turtle.getscreen()
 linet = turtle.Turtle()
 t1 = turtle.Turtle()
 t2 = turtle.Turtle()
@@ -20,6 +19,10 @@ t4.goto(0, 120)
 t1.color('yellow')
 t2.color('red')
 t3.color('blue')
+
+linet.goto(size, 0)
+linet.left(90)
+linet.forward(129)
 
 for q in turtles:
     q.pendown()
