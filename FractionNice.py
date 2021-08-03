@@ -41,8 +41,24 @@ class Fraction:
         w = self.denom * other.numer
         return Fraction(q, w)
 
+    def __floordiv__(self, other):  # Деление, но автоматическое преобразование в число (float)
+        q = self.numer * other.denom
+        w = self.denom * other.numer
+        return q / w
 
-q12 = Fraction(2, 2)
-q13 = Fraction(8, 3)
-qwe = q12 / q13
-print(qwe)
+    def __eq__(self, other):  # Равны ли дроби ==
+        if self.numer / other.numer == self.denom / other.denom:
+            return True
+        else:
+            return False
+
+    def __ne__(self, other):  # Не равны ли дроби !=
+        if not self.numer / other.numer == self.denom / other.denom:
+            return True
+        else:
+            return False
+
+
+q1 = Fraction(1, 2)
+q2 = Fraction(1, 6)
+print(q2 != q1)
