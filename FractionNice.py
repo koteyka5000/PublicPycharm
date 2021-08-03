@@ -47,10 +47,7 @@ class Fraction:
         return q / w
 
     def __eq__(self, other):  # Равны ли дроби ==
-        if self.numer / other.numer == self.denom / other.denom:
-            return True
-        else:
-            return False
+        return self.numer / other.numer == self.denom / other.denom
 
     def __ne__(self, other):  # Не равны ли дроби !=
         return not self.numer / other.numer == self.denom / other.denom
@@ -79,4 +76,4 @@ class Fraction:
 
 q1 = Fraction(1, 2)
 q2 = Fraction(2, 4)
-print(q1 != q2)
+print(q1 <= q2)
