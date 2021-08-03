@@ -53,10 +53,7 @@ class Fraction:
             return False
 
     def __ne__(self, other):  # Не равны ли дроби !=
-        if not self.numer / other.numer == self.denom / other.denom:
-            return True
-        else:
-            return False
+        return not self.numer / other.numer == self.denom / other.denom
 
     def __pow__(self, power, modulo=None):  # Степень **
         if type(power) == Fraction:
@@ -70,10 +67,16 @@ class Fraction:
     def __lt__(self, other):  # <
         return float(self) < float(other)
 
+    def __le__(self, other):
+        return self.numer / other.numer == self.denom / other.denom or float(self) < float(other)
+
+    def __ge__(self, other):
+        return self.numer / other.numer == self.denom / other.denom or float(self) > float(other)
+
     def __gt__(self, other):  # >
         return float(self) > float(other)
 
 
-q1 = Fraction(6, 6)
-q2 = Fraction(4, 3)
-print(q1 > q2)
+q1 = Fraction(1, 2)
+q2 = Fraction(2, 4)
+print(q1 != q2)
