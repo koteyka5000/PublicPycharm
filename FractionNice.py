@@ -21,8 +21,8 @@ class Fraction:
         return Fraction(new_1, new_2)
 
     def __sub__(self, other):  # Вычитание -
-        new_1 = self.get_numerator() * other.get_denominator() - self.get_denominator() * other.get_numerator()
-        new_2 = self.get_denominator() * other.get_denominator()
+        new_1 = self.numer * other.denom - self.denom * other.numer
+        new_2 = self.denom * other.denom
         return Fraction(new_1, new_2)
 
     def __mul__(self, other):  # Умножение *
@@ -41,7 +41,7 @@ class Fraction:
         w = self.denom * other.numer
         return Fraction(q, w)
 
-    def __floordiv__(self, other):  # Деление, но автоматическое преобразование в число (float)
+    def __floordiv__(self, other):  # Деление, но автоматическое преобразование в число (float) //
         q = self.numer * other.denom
         w = self.denom * other.numer
         return q / w
@@ -58,7 +58,14 @@ class Fraction:
         else:
             return False
 
+    def __pow__(self, power, modulo=None):  # Степень **
+        q = self.numer
+        w = self.denom
+        q **= power
+        w **= power
+        return Fraction(q, w)
+
 
 q1 = Fraction(1, 2)
-q2 = Fraction(1, 6)
-print(q2 != q1)
+q2 = Fraction(1, 2)
+print(q1 ** 2)
