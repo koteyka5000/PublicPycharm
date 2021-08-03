@@ -59,13 +59,21 @@ class Fraction:
             return False
 
     def __pow__(self, power, modulo=None):  # Степень **
+        if type(power) == Fraction:
+            power = power.numer / power.denom
         q = self.numer
         w = self.denom
         q **= power
         w **= power
         return Fraction(q, w)
 
+    def __lt__(self, other):  # <
+        return float(self) < float(other)
 
-q1 = Fraction(1, 2)
-q2 = Fraction(1, 2)
-print(q1 ** 2)
+    def __gt__(self, other):  # >
+        return float(self) > float(other)
+
+
+q1 = Fraction(6, 6)
+q2 = Fraction(4, 3)
+print(q1 > q2)
