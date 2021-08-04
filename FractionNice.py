@@ -1,3 +1,21 @@
+import pickle
+
+
+def read(cell=-1):  # Прочитать файл для записи. Вернёт все значения без аргументов, или нужную дробь
+    with open('FractionSaved.bin', 'rb') as f:  # Которая находится под ключом cell
+        q = pickle.load(f)
+        return q if cell == -1 else q[cell]
+
+
+def del_cell(cell):
+    q = read()
+    w = read(cell)
+    del q[cell]
+    with open('FractionSaved.bin', 'wb') as f:
+        pickle.dump(q, f)
+    return w
+
+
 class Fraction:
     def __init__(self, numer, denom):
         self.numer = numer
@@ -11,6 +29,17 @@ class Fraction:
 
     def flip(self):  # Перевернуть дробь: 3/6 - 6/3
         return Fraction(self.denom, self.numer)
+
+    def rewrite(self, cell):  # Очистить файл FractionSaved.bin и записать дробь под ключом cell
+        with open('FractionSaved.bin', 'wb') as f:
+            q = {cell: [self.numer, self.denom]}
+            pickle.dump(q, f)
+
+    def write_add(self, cell):  # Добавить дробь в файл под ключом cell
+        w = read()
+        with open('FractionSaved.bin', 'wb') as f:
+            w[cell] = [self.numer, self.denom]
+            pickle.dump(w, f)
 
     def __str__(self):  # print()
         return f'{self.numer} / {self.denom}'
@@ -74,6 +103,6 @@ class Fraction:
         return float(self) > float(other)
 
 
-q1 = Fraction(1, 2)
-q2 = Fraction(2, 4)
-print(q1 <= q2)
+q1 = Fraction(12, 90)
+q2 = Fraction(44, 13)
+print(read())
