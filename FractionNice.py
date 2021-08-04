@@ -7,7 +7,7 @@ def read(cell=-1):  # Прочитать файл для записи. Верн�
         return q if cell == -1 else q[cell]
 
 
-def del_cell(cell):
+def del_cell(cell):  # Удалить значение под ключом cell
     q = read()
     w = read(cell)
     del q[cell]
@@ -21,7 +21,7 @@ class Fraction:
         self.numer = numer
         self.denom = denom
 
-    def get_numerator(self):  # Получиить числитель
+    def get_numerator(self):  # Получить числитель
         return self.numer
 
     def get_denominator(self):  # Получить знаменатель
